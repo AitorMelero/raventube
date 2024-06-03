@@ -24,8 +24,12 @@
     /* Url Imports */
     "baseUrl": ".",
     "paths": {
-      "@/": ["src/*"],
-      "@/components": ["src/components/*"]
+      "@/*": ["src/*"],
+      "@/components": ["src/components/*"],
+      "@/hooks": ["src/hooks/*"],
+      "@/layouts": ["src/layouts/*"],
+      "@/pages": ["src/pages/*"],
+      "@/routes": ["src/routes/*"]
     }
   },
   "include": ["src", "tests"],
