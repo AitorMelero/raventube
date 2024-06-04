@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '@/services/login'
+import { useToken } from './useToken'
 
 interface LoginHook {
   isLoading: boolean
@@ -16,6 +17,7 @@ export const useLogin = (): LoginHook => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [, setIsError] = useState(false)
+  const { addToken } = useToken()
   const navigate = useNavigate()
 
   const changeUsername = (event: React.FormEvent<HTMLInputElement>) => {
@@ -33,6 +35,7 @@ export const useLogin = (): LoginHook => {
 
     try {
       await login({ username, password })
+      addToken(password)
       navigate('/')
     } catch (error) {
       setIsError(true)

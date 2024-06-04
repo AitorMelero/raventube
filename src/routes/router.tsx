@@ -9,7 +9,10 @@ export const routesConfig = [
     element: <PageLayout />,
     errorElement: <PageLayout isError={true} />,
     children: [
-      { index: true, element: <HomePage /> },
+      {
+        path: '/',
+        element: <HomePage />,
+      },
       {
         path: '/login',
         element: <LoginPage />,
