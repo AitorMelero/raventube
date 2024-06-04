@@ -1,7 +1,7 @@
+import { createBrowserRouter } from 'react-router-dom'
 import { PageLayout } from '@/layouts/PageLayout'
 import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
-import { createBrowserRouter } from 'react-router-dom'
 
 export const routesConfig = [
   {
