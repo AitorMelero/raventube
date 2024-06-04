@@ -37,7 +37,11 @@ export const LoginPage = () => {
           </label>
         </div>
       </div>
-      <button type="submit" disabled={isLoading} className="login-page__button">
+      <button
+        type="submit"
+        disabled={isLoading}
+        className={`${isLoading ? 'login-page__button--loading' : 'login-page__button--base'}`}
+      >
         {isLoading ? <Spinner /> : 'Submit'}
       </button>
     </form>
