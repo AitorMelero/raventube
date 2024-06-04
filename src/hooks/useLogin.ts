@@ -5,6 +5,7 @@ import { useToken } from './useToken'
 
 interface LoginHook {
   isLoading: boolean
+  isError: boolean
   username: string
   password: string
   changeUsername: (event: React.FormEvent<HTMLInputElement>) => void
@@ -16,7 +17,7 @@ export const useLogin = (): LoginHook => {
   const [isLoading, setIsLoading] = useState(false)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [, setIsError] = useState(false)
+  const [isError, setIsError] = useState(false)
   const { addToken } = useToken()
   const navigate = useNavigate()
 
@@ -31,9 +32,14 @@ export const useLogin = (): LoginHook => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsError(false)
-    setIsLoading(true)
+
+    if (username === '' || password === '') {
+      setIsError(true)
+      return
+    }
 
     try {
+      setIsLoading(true)
       await login({ username, password })
       addToken(password)
       navigate('/')
@@ -46,6 +52,7 @@ export const useLogin = (): LoginHook => {
 
   return {
     isLoading,
+    isError,
     username,
     password,
     changeUsername,

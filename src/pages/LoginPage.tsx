@@ -4,7 +4,8 @@ import { Spinner } from '@/components/Spinner'
 import { useToken } from '@/hooks/useToken'
 
 export const LoginPage = () => {
-  const { username, password, isLoading, changeUsername, changePassword, handleSubmit } = useLogin()
+  const { username, password, isLoading, isError, changeUsername, changePassword, handleSubmit } =
+    useLogin()
   const { token } = useToken()
 
   return (
@@ -29,7 +30,7 @@ export const LoginPage = () => {
                 Username
               </label>
             </div>
-            <div className="form-floating">
+            <div className="form-floating mb-3">
               <input
                 type="password"
                 className="form-control login-page__input"
@@ -43,6 +44,7 @@ export const LoginPage = () => {
                 Password
               </label>
             </div>
+            {isError && <span className="login-page__error">Login with a correct user</span>}
           </div>
           <button
             type="submit"

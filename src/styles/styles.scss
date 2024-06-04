@@ -47,6 +47,11 @@ body {
   color: $gray-600;
 }
 
+.login-page__error {
+  color: $danger;
+  font-weight: 600;
+}
+
 %login-page__button {
   border-radius: 45px;
   border: none;
