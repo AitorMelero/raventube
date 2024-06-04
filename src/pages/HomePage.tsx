@@ -1,9 +1,23 @@
+import { Dashboard } from '@/components/Dashboard'
 import { Navbar } from '@/components/Navbar'
+import { VideosContainer } from '@/components/VideosContainer'
 import { useToken } from '@/hooks/useToken'
-import { Navigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export const HomePage = () => {
-  const { token } = useToken()
+  const { token, deleteToken } = useToken()
+  const [isVideos, setIsVideos] = useState(true)
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    deleteToken()
+    navigate('/login')
+  }
+
+  const handleChangeView = (clickVideos: boolean) => {
+    setIsVideos(clickVideos)
+  }
 
   return (
     <>
@@ -12,7 +26,9 @@ export const HomePage = () => {
       ) : (
         <div className="home-page">
           <header className="home-page__header">
-            <button className="home-page__logout">Logout</button>
+            <button className="btn btn-danger" onClick={handleLogout}>
+              Logout
+            </button>
           </header>
           <main className="home-page__main">
             <h1 className="home-page__title">RavenTube</h1>
@@ -23,13 +39,12 @@ export const HomePage = () => {
                 id="formControl"
                 placeholder="Search a channel"
               />
-              <button>Search</button>
+              <button className="btn btn-secondary">Search</button>
             </form>
             <section className="home-page__section">
-              <Navbar />
-              <div className="home-page__videos">
-                <p className="no-videos-message">There are no videos to show</p>
-              </div>
+              <Navbar isVideos={isVideos} handleChangeView={handleChangeView} />
+              <hr className="home-page__separator" />
+              {isVideos ? <VideosContainer /> : <Dashboard />}
             </section>
           </main>
         </div>
