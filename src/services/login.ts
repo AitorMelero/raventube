@@ -3,6 +3,8 @@ import { LoginType } from '@/types/types'
 const ENDPOINT = 'https://www.googleapis.com/youtube/v3'
 
 export async function login(dataUser: LoginType) {
+  // Estos son parametros de prueba para realizar una simple peticion a la API
+  // de YouTube y comprobar que el TOKEN es correcto
   const PART = 'id'
   const CHANNEL_ID = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
   const ACCEPT = 'application/json'
