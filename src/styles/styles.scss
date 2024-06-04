@@ -149,8 +149,11 @@ body {
 .home-page__videos {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
   min-height: 320px;
+  padding: 20px;
 }
 
 .no-videos-message {
@@ -190,4 +193,23 @@ body {
 .navbar-button:hover {
   border-bottom: solid;
   color: $gray-700;
+}
+
+.video-card {
+  background-color: $gray-700;
+  color: white;
+  height: auto;
+  padding: 0 20px;
+  width: 300px;
+}
+
+.video-card__image {
+  background-position: center;
+  background-size: cover;
+  clip-path: inset(24px 0px);
+}
+
+.video-card__text {
+  color: white;
+  font-size: 12px;
 }

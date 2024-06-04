@@ -1,23 +1,20 @@
+import { Navigate } from 'react-router-dom'
 import { Dashboard } from '@/components/Dashboard'
 import { Navbar } from '@/components/Navbar'
 import { VideosContainer } from '@/components/VideosContainer'
-import { useToken } from '@/hooks/useToken'
-import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useHomePage } from '@/hooks/useHomePage'
 
 export const HomePage = () => {
-  const { token, deleteToken } = useToken()
-  const [isVideos, setIsVideos] = useState(true)
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    deleteToken()
-    navigate('/login')
-  }
-
-  const handleChangeView = (clickVideos: boolean) => {
-    setIsVideos(clickVideos)
-  }
+  const {
+    token,
+    search,
+    isVideos,
+    videos,
+    handleLogout,
+    handleSubmit,
+    onChangeSearch,
+    handleChangeView,
+  } = useHomePage()
 
   return (
     <>
@@ -32,19 +29,23 @@ export const HomePage = () => {
           </header>
           <main className="home-page__main">
             <h1 className="home-page__title">RavenTube</h1>
-            <form className="home-page__form">
+            <form method="post" className="home-page__form" onSubmit={handleSubmit}>
               <input
                 type="text"
                 className="form-control"
                 id="formControl"
                 placeholder="Search a channel"
+                value={search}
+                onChange={onChangeSearch}
               />
-              <button className="btn btn-secondary">Search</button>
+              <button className="btn btn-secondary" type="submit">
+                Search
+              </button>
             </form>
             <section className="home-page__section">
               <Navbar isVideos={isVideos} handleChangeView={handleChangeView} />
               <hr className="home-page__separator" />
-              {isVideos ? <VideosContainer /> : <Dashboard />}
+              {isVideos ? <VideosContainer videos={videos} /> : <Dashboard />}
             </section>
           </main>
         </div>
