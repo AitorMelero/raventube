@@ -6,9 +6,5 @@ interface Props {
 }
 
 export const PageLayout: React.FC<Props> = ({ isError = false }) => {
-  return (
-    <div className="page-layout">
-      <main className="page-layout__main">{isError ? <ErrorPage /> : <Outlet />}</main>
-    </div>
-  )
+  return <div className="page-layout">{isError ? <ErrorPage /> : <Outlet />}</div>
 }
