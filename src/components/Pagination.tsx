@@ -12,36 +12,19 @@ export const Pagination: React.FC<Props> = ({ totalVideos }) => {
       {numPags === 0 ? (
         <></>
       ) : (
-        <nav aria-label="Page navigation example" className="pagination-nav">
-          <ul className="pagination">
+        <nav className="pagination-nav">
+          <ul className="pagination pagination-sm pagination-nav__list">
             <li className="page-item">
-              <a className="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+              <a className="page-item__link" href="#">
+                Prev
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
+              <p>1 of {Math.ceil(numPags)}</p>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                ...
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
+              <a className="page-item__link" href="#">
+                Next
               </a>
             </li>
           </ul>
