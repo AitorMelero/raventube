@@ -12,7 +12,7 @@ export const Pagination: React.FC<Props> = ({ totalVideos }) => {
       {numPags === 0 ? (
         <></>
       ) : (
-        <nav aria-label="Page navigation example pagination">
+        <nav aria-label="Page navigation example" className="pagination-nav">
           <ul className="pagination">
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Previous">
