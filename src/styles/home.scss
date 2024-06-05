@@ -1,0 +1,104 @@
+@use 'base';
+
+.home-page {
+  @extend %base-page;
+  min-width: 300px;
+}
+
+.home-page__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-right: 50px;
+  min-width: 300px;
+}
+
+.home-page__logout {
+  background-color: $danger;
+  color: white;
+}
+
+.home-page__main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.home-page__title {
+  margin-bottom: 30px;
+  text-shadow: $red-500 1px 0 10px;
+}
+
+.home-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
+  min-width: 300px;
+  width: 40%;
+}
+
+.home-page__section {
+  min-width: 300px;
+  width: 80%;
+}
+
+.home-page__separator {
+  border-top: 2px solid;
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.home-page__videos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  min-height: 320px;
+  padding: 20px;
+}
+
+.no-videos-message {
+  align-self: center;
+  font-size: large;
+  font-weight: 500;
+}
+
+%navbar-button {
+  background-color: transparent;
+  border: transparent;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.navbar-button {
+  @extend %navbar-button;
+  color: $gray-700;
+}
+
+.navbar-button--selected {
+  @extend %navbar-button;
+  border-bottom: solid;
+  border-color: white;
+}
+
+.navbar-button:hover {
+  border-bottom: solid;
+  color: $gray-700;
+}
+
+@media (min-width: 640px) {
+  .home-page__form {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 50px;
+    max-width: 800px;
+    width: 80%;
+  }
+}

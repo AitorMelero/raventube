@@ -1,0 +1,9 @@
+@use 'base';
+
+.error-page {
+  @extend %base-page;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
