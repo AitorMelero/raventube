@@ -49,7 +49,14 @@ export const HomePage = () => {
               <ChannelInfo channel={channel} isLoading={isSearching} />
               <Navbar isVideos={isVideos} handleChangeView={handleChangeView} />
               <hr className="home-page__separator" />
-              {isVideos ? <VideosContainer videos={videos} /> : <Dashboard />}
+              {isVideos ? (
+                <VideosContainer
+                  videos={videos}
+                  totalVideos={channel ? Number(channel.statistics.videoCount) : 0}
+                />
+              ) : (
+                <Dashboard />
+              )}
             </section>
           </main>
         </div>

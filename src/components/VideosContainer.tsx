@@ -4,9 +4,10 @@ import { Pagination } from './Pagination'
 
 interface Props {
   videos: VideoType[]
+  totalVideos: number
 }
 
-export const VideosContainer: React.FC<Props> = ({ videos = [] }) => {
+export const VideosContainer: React.FC<Props> = ({ videos = [], totalVideos }) => {
   return (
     <div className="home-page__videos">
       {videos.length === 0 ? (
@@ -16,7 +17,7 @@ export const VideosContainer: React.FC<Props> = ({ videos = [] }) => {
           {videos.map((video) => {
             return <Video key={video.id} videoData={video} />
           })}
-          <Pagination totalVideos={videos.length} />
+          <Pagination totalVideos={totalVideos} />
         </>
       )}
     </div>
