@@ -3,11 +3,14 @@ import { Dashboard } from '@/components/Dashboard'
 import { Navbar } from '@/components/Navbar'
 import { VideosContainer } from '@/components/VideosContainer'
 import { useHomePage } from '@/hooks/useHomePage'
+import { ChannelInfo } from '@/components/ChannelInfo'
 
 export const HomePage = () => {
   const {
     token,
+    isSearching,
     search,
+    channel,
     isVideos,
     videos,
     handleLogout,
@@ -43,6 +46,7 @@ export const HomePage = () => {
               </button>
             </form>
             <section className="home-page__section">
+              <ChannelInfo channel={channel} isLoading={isSearching} />
               <Navbar isVideos={isVideos} handleChangeView={handleChangeView} />
               <hr className="home-page__separator" />
               {isVideos ? <VideosContainer videos={videos} /> : <Dashboard />}
