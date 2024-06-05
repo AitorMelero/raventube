@@ -14,7 +14,11 @@ export const ChannelInfo: React.FC<Props> = ({ channel, isLoading = false }) => 
       ) : channel !== undefined ? (
         <div className="channel-info__container">
           <div className="channel-info__image-container">
-            <img className="channel-info__image" src={channel.imageUrl} alt="User Photo" />
+            <img
+              className="channel-info__image"
+              src={channel.imageUrl}
+              onError={(event) => (event.currentTarget.src = './channel-image.jpg')}
+            />
           </div>
           <article className="channel-info__article">
             <h3 className="channel-info__title">{channel.title}</h3>

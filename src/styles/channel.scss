@@ -28,6 +28,8 @@
 }
 
 .channel-info__image {
+  aspect-ratio: 1/1;
+  background-color: $gray-600;
   border-radius: 50%;
   height: 100px;
   width: 100px;
