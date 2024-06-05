@@ -1,18 +1,17 @@
 import { LoginType } from '@/types/types'
-
-const ENDPOINT = 'https://www.googleapis.com/youtube/v3'
+import { YT_URL } from '@/utils/consts'
 
 export async function login(dataUser: LoginType) {
   // Estos son parametros de prueba para realizar una simple peticion a la API
   // de YouTube y comprobar que el TOKEN es correcto
-  const PART = 'id'
-  const CHANNEL_ID = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
+  const PART = 'status'
+  const FOR_HANDLE = 'test'
   const ACCEPT = 'application/json'
   const MAX_RESULT = 2
   const { password } = dataUser
 
   return fetch(
-    `${ENDPOINT}/activities?part=${PART}&channelId=${CHANNEL_ID}&key=${password}&accept=${ACCEPT}&maxResults=${MAX_RESULT}`,
+    `${YT_URL}/channels?part=${PART}&forHandle=${FOR_HANDLE}&key=${password}&accept=${ACCEPT}&maxResults=${MAX_RESULT}`,
   ).then((res) => {
     if (!res.ok) throw new Error('Login Error')
 
