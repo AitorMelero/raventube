@@ -37,6 +37,11 @@
   font-size: 12px;
 }
 
+.channel-info__message--error {
+  font-size: 16px;
+  font-weight: 600;
+}
+
 @media (min-width: 640px) {
   .channel-info__container {
     align-items: flex-start;

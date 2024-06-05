@@ -1,3 +1,5 @@
+import { TOKEN_NAME } from '@/utils/consts'
+
 interface TokenHook {
   token: string | null
   addToken: (token: string) => void
@@ -5,7 +7,6 @@ interface TokenHook {
 }
 
 export const useToken = (): TokenHook => {
-  const TOKEN_NAME = 'raventube-token'
   const token = localStorage.getItem(TOKEN_NAME)
 
   const addToken = (token: string) => {

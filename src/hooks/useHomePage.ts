@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CryptoJS from 'crypto-js'
 import { useToken } from './useToken'
-import { ChannelStatistics, ChannelType, VideoType } from '@/types/types'
+import { ChannelType, VideoType } from '@/types/types'
+import { searchChannel as searchChannelService } from '@/services/search'
 
 interface HomePageHookType {
   token: string | null
@@ -39,33 +40,23 @@ export const useHomePage = (): HomePageHookType => {
     setSearch(event.currentTarget.value)
   }
 
-  const searchChannel = () => {
+  const searchChannel = async () => {
     setIsSearching(true)
-    const id = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
-    const title = 'Google for Developers'
-    const customUrl = '@googledevelopers'
-    const description =
-      'Subscribe to join a community of creative developers and learn the latest in Google technology — from AI and cloud, to mobile and web.\n\nExplore more at developers.google.com\n\n'
-    const imageUrl =
-      'https://yt3.ggpht.com/vY3uYs71A_JwVcigyd2tVRHwuj05_cYktQSuzRCxta-9VFxHFtKjGrwG9WFi8ijXITBL3CwPQQ=s800-c-k-c0x00ffffff-no-rj'
-    const statistics: ChannelStatistics = {
-      viewCount: '280095510',
-      subscriberCount: '2370000',
-      videoCount: '6196',
+    setVideos([])
+    setChannel(undefined)
+
+    // No buscamos si el campo de busqueda esta vacio
+    if (search === '') {
+      setIsSearching(false)
+      return
     }
 
-    const channel: ChannelType = {
-      id,
-      title,
-      customUrl,
-      description,
-      imageUrl,
-      statistics,
+    const result = await searchChannelService(search)
+
+    if (result !== null) {
+      setChannel(result)
+      searchVideos(result)
     }
-
-    setChannel(channel)
-
-    searchVideos(channel)
 
     setIsSearching(false)
   }
@@ -78,8 +69,6 @@ export const useHomePage = (): HomePageHookType => {
     const name = 'Google I/O 2013 Highlights'
     const videoDate = '2013-06-04T21:13:09Z'
     const visits = 25
-
-    console.log(channel)
 
     const newVideo: VideoType = {
       id,
