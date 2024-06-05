@@ -55,7 +55,7 @@ export const HomePage = () => {
                   totalVideos={channel ? Number(channel.statistics.videoCount) : 0}
                 />
               ) : (
-                <Dashboard />
+                <Dashboard channel={channel} />
               )}
             </section>
           </main>

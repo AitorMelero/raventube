@@ -1,0 +1,21 @@
+.dashboard-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.dashboard-data {
+  align-items: center;
+  background-color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  min-height: 100px;
+  padding: 20px;
+  width: 300px;
+}

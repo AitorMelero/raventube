@@ -11,7 +11,7 @@ async function callAPI(endpoint: string, errorMessage: string) {
 }
 
 export async function searchChannel(nameChannel: string): Promise<ChannelType | null> {
-  const PART = 'snippet,statistics'
+  const PART = 'snippet,statistics,brandingSettings'
   const FOR_HANDLE = '@' + nameChannel.replaceAll(' ', '')
   const ACCEPT = 'application/json'
   const MAX_RESULT = '1'
@@ -23,6 +23,7 @@ export async function searchChannel(nameChannel: string): Promise<ChannelType | 
 
     const snippet = data.items[0].snippet
     const statistics = data.items[0].statistics
+    const brandingSettings = data.items[0].brandingSettings
 
     return {
       id: data.items[0].id,
@@ -30,11 +31,13 @@ export async function searchChannel(nameChannel: string): Promise<ChannelType | 
       customUrl: snippet.customUrl,
       description: snippet.description,
       imageUrl: snippet.thumbnails.high.url,
+      date: snippet.publishedAt.substring(0, 10),
       statistics: {
         viewCount: statistics.viewCount,
         subscriberCount: statistics.subscriberCount,
         videoCount: statistics.videoCount,
       },
+      tags: brandingSettings.channel.keywords,
     }
   })
 }

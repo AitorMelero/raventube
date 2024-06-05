@@ -41,4 +41,6 @@ export interface ChannelType {
   description: string
   imageUrl: string
   statistics: ChannelStatistics
+  date: string
+  tags: string
 }
