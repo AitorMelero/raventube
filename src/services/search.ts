@@ -48,21 +48,21 @@ export async function searchVideos(idChannel: string): Promise<VideoType[] | nul
   const token = localStorage.getItem(TOKEN_NAME)
   const endpoint = `${YT_URL}/search?part=${PART}&channelId=${idChannel}&type=${TYPE}&key=${token}&accept=${ACCEPT}&maxResults=${MAX_RESULT}&order=${ORDER}`
 
-  return await callAPI(endpoint, 'Search Videos error').then((data) => {
+  return callAPI(endpoint, 'Search Videos error').then((data) => {
     if (data.pageInfo.totalResults === 0) return null
 
     const videos: VideoType[] = []
     const items = data.items as SearchVideoAPI[]
 
     items.forEach(async (item) => {
-      const viewCount = await searchVideoCount(item.id.videoId)
-
       const video: VideoType = {
         id: item.id.videoId,
         name: item.snippet.title,
         imageUrl: item.snippet.thumbnails.high.url,
         videoDate: item.snippet.publishedAt.substring(0, 10),
-        visits: viewCount,
+        // No hago la busqueda de las visualizaciones reales
+        // para no gastar en exceso la cuota de la API
+        visits: Math.floor(Math.random() * 1000000),
         hashmd5: MD5(item.snippet.title),
       }
 
@@ -70,18 +70,5 @@ export async function searchVideos(idChannel: string): Promise<VideoType[] | nul
     })
 
     return videos
-  })
-}
-
-export async function searchVideoCount(idVideo: string): Promise<number> {
-  const PART = 'snippet,statistics'
-  const ACCEPT = 'application/json'
-  const token = localStorage.getItem(TOKEN_NAME)
-  const endpoint = `${YT_URL}/videos?part=${PART}&id=${idVideo}&key=${token}&accept=${ACCEPT}`
-
-  return callAPI(endpoint, 'Search Video Count Error').then((data) => {
-    if (data.pageInfo.totalResults === 0) return 0
-
-    return data.items[0].statistics.viewCount as number
   })
 }

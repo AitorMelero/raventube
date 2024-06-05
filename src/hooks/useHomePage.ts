@@ -56,8 +56,8 @@ export const useHomePage = (): HomePageHookType => {
     const result = await searchChannelService(search)
 
     if (result !== null) {
+      await searchVideos(result.id)
       setChannel(result)
-      searchVideos(result.id)
     }
 
     setIsSearching(false)
@@ -75,6 +75,7 @@ export const useHomePage = (): HomePageHookType => {
     event.preventDefault()
     searchChannel()
   }
+
   return {
     token,
     isSearching,
