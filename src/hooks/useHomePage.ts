@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CryptoJS from 'crypto-js'
 import { useToken } from './useToken'
 import { ChannelType, VideoType } from '@/types/types'
-import { searchChannel as searchChannelService } from '@/services/search'
+import {
+  searchChannel as searchChannelService,
+  searchVideos as searchVideosService,
+} from '@/services/search'
 
 interface HomePageHookType {
   token: string | null
@@ -55,44 +57,18 @@ export const useHomePage = (): HomePageHookType => {
 
     if (result !== null) {
       setChannel(result)
-      searchVideos(result)
+      searchVideos(result.id)
     }
 
     setIsSearching(false)
   }
 
-  const searchVideos = (channel: ChannelType) => {
-    const id = 'UCSf6S_PAhXsqGMTPDiKgdRg'
-    // const idChannel = 'UC_x5XG1OV2P6uZZ5FSM9Ttw'
-    // const imageUrl = 'https://i.ytimg.com/vi/oWDrQa6jymc/hqdefault.jpg'
-    const imageUrl = 'https://i.ytimg.com/vi/3YeGBlKZdp4/hqdefault.jpg'
-    const name = 'Google I/O 2013 Highlights'
-    const videoDate = '2013-06-04T21:13:09Z'
-    const visits = 25
+  const searchVideos = async (channelId: string) => {
+    const result = await searchVideosService(channelId)
 
-    const newVideo: VideoType = {
-      id,
-      name,
-      imageUrl,
-      videoDate,
-      visits,
-      hashmd5: CryptoJS.MD5(name),
+    if (result !== null) {
+      setVideos(result)
     }
-
-    setVideos([
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-      newVideo,
-    ])
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

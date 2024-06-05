@@ -12,6 +12,22 @@ export interface VideoType {
   hashmd5: CryptoJS.lib.WordArray
 }
 
+// Tipo de la API que nos interesa
+export interface SearchVideoAPI {
+  id: {
+    videoId: string
+  }
+  snippet: {
+    publishedAt: string
+    title: string
+    thumbnails: {
+      high: {
+        url: string
+      }
+    }
+  }
+}
+
 export interface ChannelStatistics {
   viewCount: string
   subscriberCount: string
