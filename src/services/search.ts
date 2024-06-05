@@ -12,7 +12,7 @@ async function callAPI(endpoint: string, errorMessage: string) {
 
 export async function searchChannel(nameChannel: string): Promise<ChannelType | null> {
   const PART = 'snippet,statistics'
-  const FOR_HANDLE = '@' + nameChannel
+  const FOR_HANDLE = '@' + nameChannel.replaceAll(' ', '')
   const ACCEPT = 'application/json'
   const MAX_RESULT = '1'
   const token = localStorage.getItem(TOKEN_NAME)
