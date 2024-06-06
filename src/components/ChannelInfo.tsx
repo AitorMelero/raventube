@@ -22,7 +22,9 @@ export const ChannelInfo: React.FC<Props> = ({ channel, isLoading = false }) => 
           </div>
           <article className="channel-info__article">
             <h3 className="channel-info__title">{channel.title}</h3>
-            <p className="channel-info__main-data">{`${channel.customUrl + ' - ' + channel.statistics.subscriberCount + ' subscribers'}`}</p>
+            <p className="channel-info__main-data">
+              {channel.customUrl + ' - ' + channel.statistics.subscriberCount + ' subscribers'}
+            </p>
             <p className="channel-info__description">{channel.description}</p>
           </article>
         </div>

@@ -1,5 +1,12 @@
 .video-card {
-  background-color: $gray-700;
+  background-color: rgba($gray-600, 0.3);
+  border-radius: 20px;
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px,
+    rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px,
+    rgba(0, 0, 0, 0.09) 0px -3px 5px;
   color: white;
   height: auto;
   padding: 0 20px;
@@ -18,9 +25,24 @@
   justify-content: space-between;
 }
 
+.video-card__title {
+  font-weight: 800;
+}
+
+.video-card__container--text {
+  display: flex;
+  flex-direction: column;
+}
+
 .video-card__text {
   color: white;
-  font-size: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.video-card__text--md5 {
+  color: white;
+  font-size: 0.7rem;
 }
 
 .pagination-nav {

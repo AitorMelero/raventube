@@ -12,16 +12,14 @@ export const Video: React.FC<Props> = ({ videoData }) => {
     <div className="card video-card">
       <img src={imageUrl} className="card-img-top video-card__image" alt="Video Image" />
       <div className="card-body">
-        <h5 className="card-title">{name}</h5>
+        <h5 className="video-card__title">{name}</h5>
         <div className="card-text__container">
           <p className="card-text">
-            <small className="video-card__text">{md5String}</small>
+            <small className="video-card__text--md5">{md5String}</small>
           </p>
-          <p className="card-text">
-            <small className="video-card__text">{visits}</small>
-          </p>
-          <p className="card-text">
-            <small className="video-card__text">{videoDate}</small>
+          <p className="video-card__container--text">
+            <small className="video-card__text">{visits + ' views'}</small>
+            <small className="video-card__text">{'Published at ' + videoDate}</small>
           </p>
         </div>
       </div>
