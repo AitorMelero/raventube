@@ -44,3 +44,9 @@
 .page-item__link:hover {
   opacity: 0.5;
 }
+
+.page-item__link--disabled {
+  color: white;
+  opacity: 0.5;
+  text-decoration: underline;
+}

@@ -9,14 +9,18 @@ export const HomePage = () => {
   const {
     token,
     isSearching,
+    isSearchingVideos,
     search,
     channel,
     isVideos,
     videos,
+    currentPage,
     handleLogout,
     handleSubmit,
     onChangeSearch,
     handleChangeView,
+    goPrevPage,
+    goNextPage,
   } = useHomePage()
 
   return (
@@ -53,9 +57,13 @@ export const HomePage = () => {
                 <VideosContainer
                   videos={videos}
                   totalVideos={channel ? Number(channel.statistics.videoCount) : 0}
+                  goPrevPage={goPrevPage}
+                  goNextPage={goNextPage}
+                  currentPage={currentPage}
+                  isSearchingVideos={isSearchingVideos}
                 />
               ) : (
-                <Dashboard channel={channel} />
+                <Dashboard channel={channel} isSearching={isSearching} />
               )}
             </section>
           </main>

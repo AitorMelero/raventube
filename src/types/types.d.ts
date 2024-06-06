@@ -10,6 +10,8 @@ export interface VideoType {
   videoDate: string
   visits: number
   hashmd5: CryptoJS.lib.WordArray
+  prevPageToken: string | undefined
+  nextPageToken: string | undefined
 }
 
 // Tipo de la API que nos interesa

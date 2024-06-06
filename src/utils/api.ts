@@ -14,7 +14,12 @@ export async function callAPI(endpoint: string, errorMessage: string, token?: st
 }
 
 // Llamada de simulacion local para API
-export async function callAPISimulation(endpoint: string, errorMessage: string, idItem: string) {
+export async function callAPISimulation(
+  endpoint: string,
+  errorMessage: string,
+  idItem: string,
+  pageToken?: string,
+) {
   if (endpoint === 'channel') {
     return searchChannelLocal(idItem).then((res) => {
       if (res === null) throw new Error(errorMessage)
@@ -22,7 +27,7 @@ export async function callAPISimulation(endpoint: string, errorMessage: string, 
       return res
     })
   } else {
-    return searchVideosLocal(idItem).then((res) => {
+    return searchVideosLocal(idItem, pageToken).then((res) => {
       if (res === null) throw new Error(errorMessage)
 
       return res

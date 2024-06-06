@@ -10,7 +10,7 @@ export const searchChannelLocal = async (channelName: string) => {
   return null
 }
 
-export const searchVideosLocal = async (channelId: string, pageToken = '1') => {
+export const searchVideosLocal = async (channelId: string, pageToken?: string) => {
   // Simulacion de busqueda para RavenTube
   if (channelId === '1') {
     if (pageToken === '1') {

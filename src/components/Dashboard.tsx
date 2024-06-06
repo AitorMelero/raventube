@@ -1,15 +1,21 @@
 import { ChannelType } from '@/types/types'
 import { DataContainer } from './DataContainer'
 import { LineChart } from './LineChart'
+import { Spinner } from './Spinner'
 
 interface Props {
   channel: ChannelType | undefined
+  isSearching: boolean
 }
 
-export const Dashboard: React.FC<Props> = ({ channel }) => {
+export const Dashboard: React.FC<Props> = ({ channel, isSearching }) => {
   return (
     <div className="home-page__videos">
-      {channel === undefined ? (
+      {isSearching ? (
+        <div className="no-videos-message">
+          <Spinner />
+        </div>
+      ) : channel === undefined ? (
         <p className="no-videos-message">There are no dashboard to show</p>
       ) : (
         <div>

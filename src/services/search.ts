@@ -42,17 +42,26 @@ export async function searchChannel(nameChannel: string): Promise<ChannelType | 
     .catch(() => null)
 }
 
-export async function searchVideos(idChannel: string): Promise<VideoType[] | null> {
+export async function searchVideos(
+  idChannel: string,
+  pageToken?: string,
+): Promise<VideoType[] | null> {
   const PART = 'snippet'
   const TYPE = 'video'
   const ACCEPT = 'application/json'
   const MAX_RESULT = '12'
   const ORDER = 'date'
-  const endpoint = `/search?part=${PART}&channelId=${idChannel}&type=${TYPE}&accept=${ACCEPT}&maxResults=${MAX_RESULT}&order=${ORDER}`
+  const PAGE_TOKEN = pageToken ? `pageToken=${pageToken}` : ''
+  const endpoint = `/search?part=${PART}&channelId=${idChannel}&type=${TYPE}&accept=${ACCEPT}&maxResults=${MAX_RESULT}&order=${ORDER}&${PAGE_TOKEN}`
 
   // Comprobamos si el usario es el de test llamar a la API real o a la de simulacion
   const apiCall = isTestUser(localStorage.getItem(getEnvVariables().VITE_TOKEN_NAME))
-    ? callAPISimulation('videos', 'Search Local Videos Error', idChannel)
+    ? callAPISimulation(
+        'videos',
+        'Search Local Videos Error',
+        idChannel,
+        pageToken ? pageToken : '1',
+      )
     : callAPI(endpoint, 'Search Videos Error')
 
   return apiCall
@@ -60,6 +69,8 @@ export async function searchVideos(idChannel: string): Promise<VideoType[] | nul
       if (data.pageInfo.totalResults === 0) return null
 
       const videos: VideoType[] = []
+      const prevPageToken = data.prevPageToken
+      const nextPageToken = data.nextPageToken
       const items = data.items as SearchVideoAPI[]
 
       items.forEach(async (item) => {
@@ -72,6 +83,8 @@ export async function searchVideos(idChannel: string): Promise<VideoType[] | nul
           // para no gastar en exceso la cuota de la API
           visits: Math.floor(Math.random() * 1000000),
           hashmd5: MD5(item.snippet.title),
+          prevPageToken,
+          nextPageToken,
         }
 
         videos.push(video)
