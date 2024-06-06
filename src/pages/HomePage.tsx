@@ -32,7 +32,7 @@ export const HomePage = () => {
       ) : (
         <div className="home-page">
           <header className="home-page__header">
-            <button className="btn btn-danger" onClick={handleLogout}>
+            <button className="btn home-page__button--logout" onClick={handleLogout}>
               Logout
             </button>
           </header>
