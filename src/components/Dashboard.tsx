@@ -20,11 +20,27 @@ export const Dashboard: React.FC<Props> = ({ channel, isSearching }) => {
       ) : (
         <div>
           <section id="dashboard-section" className="dashboard-section">
-            <DataContainer title="Subscribers" data={channel.statistics.subscriberCount} />
-            <DataContainer title="Views" data={channel.statistics.viewCount} />
-            <DataContainer title="Video Count" data={channel.statistics.videoCount} />
-            <DataContainer title="Creation Date" data={channel.date} />
-            <DataContainer title="Tags" data={channel.tags} />
+            <DataContainer
+              title="Subscribers"
+              data={channel.statistics.subscriberCount}
+              classStyles={'dashboard-data__subscribers'}
+            />
+            <DataContainer
+              title="Views"
+              data={channel.statistics.viewCount}
+              classStyles={'dashboard-data__views'}
+            />
+            <DataContainer
+              title="Video Count"
+              data={channel.statistics.videoCount}
+              classStyles={'dashboard-data__video-count'}
+            />
+            <DataContainer
+              title="Creation Date"
+              data={channel.date}
+              classStyles={'dashboard-data__date'}
+            />
+            <DataContainer title="Tags" data={channel.tags} classStyles={'dashboard-data__tags'} />
           </section>
           <section>
             <LineChart />

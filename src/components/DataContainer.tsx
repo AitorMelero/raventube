@@ -1,15 +1,14 @@
 interface Props {
   title: string
   data: string
+  classStyles: string
 }
 
-export const DataContainer: React.FC<Props> = ({ title, data }) => {
+export const DataContainer: React.FC<Props> = ({ title, data, classStyles }) => {
   return (
-    <div className="">
-      <div className="dashboard-data">
-        <h5 className="card-title">{title}</h5>
-        <h6 className="card-subtitle mb-2 text-body-secondary">{data}</h6>
-      </div>
+    <div className={classStyles}>
+      <p className="dashboard-data__title">{title}</p>
+      <p className="mb-2 dashboard-data__text">{data}</p>
     </div>
   )
 }
