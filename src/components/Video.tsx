@@ -10,7 +10,13 @@ export const Video: React.FC<Props> = ({ videoData }) => {
 
   return (
     <div className="card video-card">
-      <img src={imageUrl} className="card-img-top video-card__image" alt="Video Image" />
+      <img
+        src={imageUrl}
+        className="card-img-top video-card__image"
+        alt="Video Image"
+        height={200}
+        onError={(event) => (event.currentTarget.src = './channel-image.jpg')}
+      />
       <div className="card-body">
         <h5 className="video-card__title">{name}</h5>
         <div className="card-text__container">
