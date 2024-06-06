@@ -40,20 +40,23 @@ export const useLogin = (): LoginHook => {
       return
     }
 
-    try {
-      const loginCorrect = await login({ username, password })
+    // Simulamos una espera de 2 segundos para que parezca mas real la busqueda
+    setTimeout(async () => {
+      try {
+        const loginCorrect = await login({ username, password })
 
-      if (loginCorrect) {
-        addToken(password)
-        navigate('/')
-      } else {
+        if (loginCorrect) {
+          addToken(password)
+          navigate('/')
+        } else {
+          setIsError(true)
+        }
+      } catch (error) {
         setIsError(true)
+      } finally {
+        setIsLoading(false)
       }
-    } catch (error) {
-      setIsError(true)
-    } finally {
-      setIsLoading(false)
-    }
+    }, 2000)
   }
 
   return {

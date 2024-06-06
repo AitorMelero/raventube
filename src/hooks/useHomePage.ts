@@ -53,14 +53,17 @@ export const useHomePage = (): HomePageHookType => {
       return
     }
 
-    const result = await searchChannelService(search)
+    // Simulamos una espera de 2 segundos para que parezca mas real la busqueda
+    setTimeout(async () => {
+      const result = await searchChannelService(search)
 
-    if (result !== null) {
-      await searchVideos(result.id)
-      setChannel(result)
-    }
+      if (result !== null) {
+        await searchVideos(result.id)
+        setChannel(result)
+      }
 
-    setIsSearching(false)
+      setIsSearching(false)
+    }, 2000)
   }
 
   const searchVideos = async (channelId: string) => {

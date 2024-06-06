@@ -1,11 +1,45 @@
-export const RAVENTUBE_CHANNEL = {
+export const searchChannelLocal = async (channelName: string) => {
+  if (channelName.toLowerCase() === '@raventube') {
+    return RAVENTUBE_CHANNEL
+  }
+
+  if (channelName.toLowerCase() === '@ravensoft') {
+    return RAVENSOFT_CHANNEL
+  }
+
+  return null
+}
+
+export const searchVideosLocal = async (channelId: string, pageToken = '1') => {
+  // Simulacion de busqueda para RavenTube
+  if (channelId === '1') {
+    if (pageToken === '1') {
+      return RAVENTUBE_VIDEOS_1
+    } else {
+      return RAVENTUBE_VIDEOS_2
+    }
+  }
+
+  // Simulacion de busqueda para RavenSoft
+  if (channelId === '2') {
+    if (pageToken === '1') {
+      return RAVENSOFT_VIDEOS_1
+    } else {
+      return RAVENSOFT_VIDEOS_2
+    }
+  }
+
+  return null
+}
+
+const RAVENTUBE_CHANNEL = {
   pageInfo: {
     totalResults: 1,
     resultsPerPage: 12,
   },
   items: [
     {
-      id: 'UCBR8-60-B28hp2BmDPdntcQ',
+      id: '1',
       snippet: {
         title: 'RavenTube',
         description:
@@ -41,14 +75,14 @@ export const RAVENTUBE_CHANNEL = {
   ],
 }
 
-export const RAVENSOFT_CHANNEL = {
+const RAVENSOFT_CHANNEL = {
   pageInfo: {
     totalResults: 1,
     resultsPerPage: 1,
   },
   items: [
     {
-      id: 'UCFtEEv80fQVKkD4h1PF-Xqw',
+      id: '2',
       snippet: {
         title: 'Ravensoft',
         description:
@@ -85,10 +119,10 @@ export const RAVENSOFT_CHANNEL = {
   ],
 }
 
-export const RAVENTUBE_VIDEOS_1 = {
+const RAVENTUBE_VIDEOS_1 = {
   kind: 'youtube#searchListResponse',
   etag: 'hrmnmtTWAdHdHJok0KlFV18tTL8',
-  nextPageToken: 'CAwQAA',
+  nextPageToken: '2',
   regionCode: 'ES',
   pageInfo: {
     totalResults: 14,
@@ -514,10 +548,10 @@ export const RAVENTUBE_VIDEOS_1 = {
   ],
 }
 
-export const RAVENTUBE_VIDEOS_2 = {
+const RAVENTUBE_VIDEOS_2 = {
   kind: 'youtube#searchListResponse',
   etag: 'ELQN1-Lv-rfQYjrTNP498k-mvPg',
-  prevPageToken: 'CAwQAQ',
+  prevPageToken: '1',
   regionCode: 'ES',
   pageInfo: {
     totalResults: 14,
@@ -596,10 +630,10 @@ export const RAVENTUBE_VIDEOS_2 = {
   ],
 }
 
-export const RAVENSOFT_VIDEOS_1 = {
+const RAVENSOFT_VIDEOS_1 = {
   kind: 'youtube#searchListResponse',
   etag: '-V2-Z45y71mXHXl3wt0sWxIfLzk',
-  nextPageToken: 'CAwQAA',
+  nextPageToken: '2',
   regionCode: 'ES',
   pageInfo: {
     totalResults: 58700,
@@ -1031,11 +1065,10 @@ export const RAVENSOFT_VIDEOS_1 = {
   ],
 }
 
-export const RAVENSOFT_VIDEOS_2 = {
+const RAVENSOFT_VIDEOS_2 = {
   kind: 'youtube#searchListResponse',
   etag: 'PNCiSw8RAImbMEs-hTbR54wVc3Y',
-  nextPageToken: 'CBQQAA',
-  prevPageToken: 'CAwQAQ',
+  prevPageToken: '1',
   regionCode: 'ES',
   pageInfo: {
     totalResults: 58700,

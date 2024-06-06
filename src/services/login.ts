@@ -27,6 +27,6 @@ export async function login(dataUser: LoginType): Promise<boolean> {
   }
 }
 
-export const isTestUser = (password: string): boolean => {
+export const isTestUser = (password: string | null): boolean => {
   return password === getEnvVariables().VITE_PASSWORD
 }

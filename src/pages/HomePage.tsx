@@ -41,7 +41,7 @@ export const HomePage = () => {
                 value={search}
                 onChange={onChangeSearch}
               />
-              <button className="btn btn-secondary" type="submit">
+              <button className="btn btn-secondary" type="submit" disabled={isSearching}>
                 Search
               </button>
             </form>

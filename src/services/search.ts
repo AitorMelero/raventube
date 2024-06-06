@@ -1,6 +1,8 @@
 import { ChannelType, SearchVideoAPI, VideoType } from '@/types/types'
-import { callAPI } from '@/utils/api'
+import { callAPI, callAPISimulation } from '@/utils/api'
 import { MD5 } from 'crypto-js'
+import { isTestUser } from './login'
+import { getEnvVariables } from '@/utils/envVariables'
 
 export async function searchChannel(nameChannel: string): Promise<ChannelType | null> {
   const PART = 'snippet,statistics,brandingSettings'
@@ -9,7 +11,12 @@ export async function searchChannel(nameChannel: string): Promise<ChannelType | 
   const MAX_RESULT = '1'
   const endpoint = `/channels?part=${PART}&forHandle=${FOR_HANDLE}&accept=${ACCEPT}&maxResults=${MAX_RESULT}`
 
-  return callAPI(endpoint, 'Search Channel Error')
+  // Comprobamos si el usario es el de test llamar a la API real o a la de simulacion
+  const apiCall = isTestUser(localStorage.getItem(getEnvVariables().VITE_TOKEN_NAME))
+    ? callAPISimulation('channel', 'Search Local Channel Error', FOR_HANDLE)
+    : callAPI(endpoint, 'Search Channel Error')
+
+  return apiCall
     .then((data) => {
       if (data.pageInfo.totalResults === 0) return null
 
@@ -43,7 +50,12 @@ export async function searchVideos(idChannel: string): Promise<VideoType[] | nul
   const ORDER = 'date'
   const endpoint = `/search?part=${PART}&channelId=${idChannel}&type=${TYPE}&accept=${ACCEPT}&maxResults=${MAX_RESULT}&order=${ORDER}`
 
-  return callAPI(endpoint, 'Search Videos error')
+  // Comprobamos si el usario es el de test llamar a la API real o a la de simulacion
+  const apiCall = isTestUser(localStorage.getItem(getEnvVariables().VITE_TOKEN_NAME))
+    ? callAPISimulation('videos', 'Search Local Videos Error', idChannel)
+    : callAPI(endpoint, 'Search Videos Error')
+
+  return apiCall
     .then((data) => {
       if (data.pageInfo.totalResults === 0) return null
 
