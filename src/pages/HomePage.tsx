@@ -6,6 +6,8 @@ import { useHomePage } from '@/hooks/useHomePage'
 import { ChannelInfo } from '@/components/ChannelInfo'
 
 export const HomePage = () => {
+  // Los datos principales y el comportamiento de la pantalla
+  // los gestionamos con un custom hook: useHomePage
   const {
     token,
     isSearching,

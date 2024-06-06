@@ -25,6 +25,7 @@ interface HomePageHookType {
   goNextPage: () => void
 }
 
+// Custom Hook para gestionar datos y comportamientos de la pantalla de Home
 export const useHomePage = (): HomePageHookType => {
   const { token, deleteToken } = useToken()
   const [isSearching, setIsSearching] = useState(false)
@@ -36,20 +37,7 @@ export const useHomePage = (): HomePageHookType => {
   const [currentPage, setCurrentPage] = useState(1)
   const navigate = useNavigate()
 
-  const goPrevPage = () => {
-    if (channel && videos.length > 0) {
-      searchVideos(channel.id, videos[0].prevPageToken)
-      setCurrentPage(currentPage - 1)
-    }
-  }
-
-  const goNextPage = () => {
-    if (channel && videos.length > 0) {
-      searchVideos(channel.id, videos[0].nextPageToken)
-      setCurrentPage(currentPage + 1)
-    }
-  }
-
+  // Cada vez que cambia el canal, buscamos los videos
   useEffect(() => {
     setCurrentPage(1)
     if (channel) {
@@ -57,20 +45,55 @@ export const useHomePage = (): HomePageHookType => {
     }
   }, [channel])
 
+  // Vamos a la pagina previa de videos
+  const goPrevPage = () => {
+    if (channel && videos.length > 0) {
+      searchVideos(channel.id, videos[0].prevPageToken)
+      setCurrentPage(currentPage - 1)
+    }
+  }
+
+  // Vamos a la siguiente pagina de videos
+  const goNextPage = () => {
+    if (channel && videos.length > 0) {
+      searchVideos(channel.id, videos[0].nextPageToken)
+      setCurrentPage(currentPage + 1)
+    }
+  }
+
+  // Logout
   const handleLogout = () => {
     deleteToken()
     navigate('/login')
   }
 
+  // Cambiamos la vista de videos a dashboard o viceversa
   const handleChangeView = (clickVideos: boolean) => {
     setIsVideos(clickVideos)
   }
 
+  // Cambiamos el valor de busqueda del input
   const onChangeSearch = (event: React.FormEvent<HTMLInputElement>) => {
     setSearch(event.currentTarget.value)
   }
 
-  const searchChannel = async () => {
+  // Buscamos los videos del canal y gestionamos la pantalla
+  const searchVideos = async (channelId: string, pageToken?: string) => {
+    setIsSearchingVideos(true)
+    setTimeout(async () => {
+      const result = await searchVideosService(channelId, pageToken)
+
+      if (result !== null) {
+        setVideos(result)
+      }
+      setIsSearchingVideos(false)
+    }, 1000)
+  }
+
+  // Submit del contenedor de busqueda
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     setIsSearching(true)
     setIsSearchingVideos(true)
     setVideos([])
@@ -95,23 +118,6 @@ export const useHomePage = (): HomePageHookType => {
         setIsSearchingVideos(false)
       }
     }, 2000)
-  }
-
-  const searchVideos = async (channelId: string, pageToken?: string) => {
-    setIsSearchingVideos(true)
-    setTimeout(async () => {
-      const result = await searchVideosService(channelId, pageToken)
-
-      if (result !== null) {
-        setVideos(result)
-      }
-      setIsSearchingVideos(false)
-    }, 1000)
-  }
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    searchChannel()
   }
 
   return {
