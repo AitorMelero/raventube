@@ -32,17 +32,23 @@ export const useLogin = (): LoginHook => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsError(false)
+    setIsLoading(true)
 
     if (username === '' || password === '') {
       setIsError(true)
+      setIsLoading(false)
       return
     }
 
     try {
-      setIsLoading(true)
-      await login({ username, password })
-      addToken(password)
-      navigate('/')
+      const loginCorrect = await login({ username, password })
+
+      if (loginCorrect) {
+        addToken(password)
+        navigate('/')
+      } else {
+        setIsError(true)
+      }
     } catch (error) {
       setIsError(true)
     } finally {

@@ -1,4 +1,4 @@
-import { TOKEN_NAME } from '@/utils/consts'
+import { getEnvVariables } from '@/utils/envVariables'
 
 interface TokenHook {
   token: string | null
@@ -7,14 +7,14 @@ interface TokenHook {
 }
 
 export const useToken = (): TokenHook => {
-  const token = localStorage.getItem(TOKEN_NAME)
+  const token = localStorage.getItem(getEnvVariables().VITE_TOKEN_NAME)
 
   const addToken = (token: string) => {
-    localStorage.setItem(TOKEN_NAME, token)
+    localStorage.setItem(getEnvVariables().VITE_TOKEN_NAME, token)
   }
 
   const deleteToken = () => {
-    localStorage.removeItem(TOKEN_NAME)
+    localStorage.removeItem(getEnvVariables().VITE_TOKEN_NAME)
   }
 
   return {
